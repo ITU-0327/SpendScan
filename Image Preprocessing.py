@@ -1,49 +1,32 @@
-import cv2
+from image_processor import ImageProcessor
 import pytesseract
 import re
-
-
-def denoise(image):
-    return cv2.fastNlMeansDenoising(image, None, 10, 7, 21)
-
-
-def adaptive(image):
-    return cv2.adaptiveThreshold(image, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 11, 2)
-
-
-def resize(image):
-    height, width = image.shape
-    new_width = 1000
-    aspect_ratio = width / height
-    new_height = int(new_width / aspect_ratio)
-    return cv2.resize(image, (new_width, new_height))
+import json
 
 
 def preprocess_image(image_path):
-    image = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
-    image = resize(image)
-    cv2.imshow('Original Image', image)
+    image = ImageProcessor(image_path)
+    image.resize()
+    # image.show_image('Original Image')
     # text = pytesseract.image_to_string(image)
     # print('Original Image:\n' + text + '\n\n')
 
-    image = denoise(image)
-    cv2.imshow('Denoise Image', image)
+    image.denoise()
+    image.show_image('Denoise Image')
     # text = pytesseract.image_to_string(image)
     # print('Denoise Image:\n' + text + '\n\n')
 
-    # image = adaptive(image)
-    # cv2.imshow('Adaptive Image', image)
+    # image.adaptive()
+    # image.show_image('Adaptive Image')
     # text = pytesseract.image_to_string(image)
     # print('Adaptive Image:\n' + text + '\n\n')
 
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
     return image
 
 
 def extract_text_from_image(image_path):
-    image = preprocess_image(image_path)
-    text = pytesseract.image_to_string(image, config='--psm 6 -l eng')
+    processed_image = preprocess_image(image_path)
+    text = pytesseract.image_to_string(processed_image.image, config='--psm 6 -l eng')
     return text
 
 
@@ -53,13 +36,14 @@ print(text)
 
 
 def extract_items(text):
-    item_pattern = re.compile(r'(?:#|\*|\)|\}|[^a-zA-Z0-9])*([\w\s]+)\s+(\d+[\.,]\d{2})')
+    item_pattern = re.compile(r'^(?:[^a-zA-Z]+)?([a-zA-Z].+?)\s+(\d+[\.,]\d{2})')
 
     items = []
     for line in text.split('\n'):
         match = item_pattern.search(line)
         if match:
             item_name = match.group(1).strip()
+            item_name = re.sub(r'(\d+)9\b', r'\1g', item_name)
             # Convert comma to period for price
             item_price = match.group(2).replace(',', '.')
             items.append({'name': item_name, 'price': item_price})
@@ -71,7 +55,7 @@ def parse_receipt(text):
     lines = text.split('\n')
 
     # Store Name & Info
-    store_name = lines[0] if len(lines) > 0 else None
+    store_name = re.sub(r'[^a-zA-Z\s]', '', lines[0]).strip() if len(lines) > 0 else None
     store_info = ' '.join(lines[1:4]) if len(lines) > 3 else None
 
     items = extract_items(text)
@@ -102,4 +86,5 @@ def parse_receipt(text):
 
 
 parsed_data = parse_receipt(text)
-print("Data: \n", parsed_data)
+data = json.dumps(parsed_data, indent=3)
+print("Data: \n", data)
