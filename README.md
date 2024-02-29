@@ -12,3 +12,7 @@
 ## Getting Started:
 
 Follow the setup and usage instructions detailed in our [documentation](LINK_TO_DOCUMENTATION).
+
+Resources used:
+- https://automationpanda.com/2018/02/06/starting-a-django-project-in-an-existing-directory/
+- https://keramatfar-a-s.medium.com/receive-camera-picture-from-user-in-django-dc5fc2e1b239
