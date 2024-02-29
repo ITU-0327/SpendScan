@@ -23,7 +23,7 @@ class ImageProcessor:
     def get_image(self):
         return self.image
 
-    def show_image(self, window_name='Image'):
+    def show_image(self, window_name='receipts_training'):
         cv2.imshow(window_name, self.image)
         cv2.waitKey(0)
         cv2.destroyAllWindows()

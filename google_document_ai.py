@@ -122,7 +122,7 @@ def get_features_dict(document: documentai.types.document.Document) -> dict:
     return receipt_dict
 
 if __name__ == '__main__':
-    file_path = 'Image/image7.jpg'
+    file_path = 'receipts_training/image1.jpg'
     mime_type = 'image/jpeg'
     doc = get_ocr_document(PROJECT_ID, location, file_path, mime_type)
     receipt_dict = get_features_dict(doc)

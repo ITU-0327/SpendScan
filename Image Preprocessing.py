@@ -7,19 +7,19 @@ import json
 def preprocess_image(image_path):
     image = ImageProcessor(image_path)
     image.resize()
-    # image.show_image('Original Image')
+    # image.show_image('Original receipts_training')
     # text = pytesseract.image_to_string(image)
-    # print('Original Image:\n' + text + '\n\n')
+    # print('Original receipts_training:\n' + text + '\n\n')
 
     image.denoise()
-    image.show_image('Denoise Image')
+    image.show_image('Denoise receipts_training')
     # text = pytesseract.image_to_string(image)
-    # print('Denoise Image:\n' + text + '\n\n')
+    # print('Denoise receipts_training:\n' + text + '\n\n')
 
     # image.adaptive()
-    # image.show_image('Adaptive Image')
+    # image.show_image('Adaptive receipts_training')
     # text = pytesseract.image_to_string(image)
-    # print('Adaptive Image:\n' + text + '\n\n')
+    # print('Adaptive receipts_training:\n' + text + '\n\n')
 
     return image
 
@@ -30,7 +30,7 @@ def extract_text_from_image(image_path):
     return text
 
 
-image_path = r"Image\Woolworths 4.jpg"
+image_path = r"receipts_training\Woolworths 4.jpg"
 text = extract_text_from_image(image_path)
 print(text)
 
