@@ -162,3 +162,5 @@ cython_debug/
 #Extra
 receipts_training/
 constants.py
+/base/purchases_response.json
+/frontend/node_modules/

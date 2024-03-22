@@ -16,3 +16,25 @@ Follow the setup and usage instructions detailed in our [documentation](LINK_TO_
 Resources used:
 - https://automationpanda.com/2018/02/06/starting-a-django-project-in-an-existing-directory/
 - https://keramatfar-a-s.medium.com/receive-camera-picture-from-user-in-django-dc5fc2e1b239
+
+
+## Directory Explaination:
+frontend
+├───migrations 
+├───static          Browser caches
+│   ├───css             CSS
+│   ├───frontend        JavaScript source code
+│   └───images          Images
+└───templates
+
+frontend            App
+├───migrations
+├───src             Source
+│   └───components  React components
+├───static          Browser cache
+│   ├───css         CSS
+│   ├───frontend    JavaScript source code
+│   └───images      Images
+└───templates
+
+
