@@ -1,0 +1,8 @@
+runtime: python39  # Use the appropriate Python runtime version
+env: flex  # Use the flexible environment for custom runtimes
+
+handlers:
+- url: /static  # URL pattern to serve static files
+  static_dir: frontend/static/  # Directory containing static files
+- url: /.*  # URL pattern to route all other requests to Django
+  script: auto  # Let App Engine determine how to handle these requests

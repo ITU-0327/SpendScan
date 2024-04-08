@@ -19,11 +19,13 @@ from django.urls import path, include
 
 from SpendScan import settings
 from django.conf.urls.static import static
+from url_checker.views import check_url
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('base.urls')),
-    path('react/', include('frontend.urls'))
+    path('react/', include('frontend.urls')),
+    path('url_checker/', include('url_checker.urls'))
 ]
 
 # if settings.DEBUG:
