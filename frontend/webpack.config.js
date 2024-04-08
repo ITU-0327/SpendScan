@@ -9,14 +9,29 @@ module.exports = {
   },
   module: {
     rules: [
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        use: {
-          loader: "babel-loader",
-        },
-      },
-    ],
+          {
+            test: /\.(js|jsx)$/,
+            exclude: /node_modules/,
+            use: {
+              loader: "babel-loader",
+            },
+          },
+          {
+            test: /\.(ts|tsx)$/,
+            exclude: /node_modules/,
+            use: {
+              loader: "ts-loader",
+              options: {
+                  compilerOptions: {
+                    jsx: 'react' // Add the '--jsx' flag here
+                  }
+                }
+            },
+          },
+        ],
+  },
+  resolve: {
+    extensions: [".js", ".jsx", ".ts", ".tsx"], // Add TypeScript extensions to resolve
   },
   optimization: {
     minimize: true,

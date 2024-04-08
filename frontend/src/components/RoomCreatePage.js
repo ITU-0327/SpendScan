@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 
-export default class HomePage extends Component {
+export default class RoomCreatePage extends Component {
     constructor(props){
         super(props);
     }
 
     render(){
-        return <p>This is the home page</p>;
+        return <p>This is the create room page</p>;
     }
 }
