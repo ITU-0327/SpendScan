@@ -18,11 +18,21 @@ from django.core.files.base import ContentFile
 from django.core.files.temp import NamedTemporaryFile
 from urllib.request import urlopen
 from django.core.files.storage import default_storage
+from rest_framework import generics, status
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from .serializers import RoomSerializer
+from .models import Room
+
 
 # Create your views here.
 def home(request):
     return HttpResponse('Welcome to home')
 
+
+class RoomView(generics.ListAPIView):
+    queryset = Room.objects.all()
+    serializer_class = RoomSerializer
 
 def image_upload(request):
     if request.method == 'POST':
